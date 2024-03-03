@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 
 class SignInPage extends StatefulWidget {
   @override
@@ -13,10 +15,37 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<void> _signInWithEmailAndPassword(BuildContext context) async {
     try {
+      final String email = _emailController.text.trim();
+      final String password = _passwordController.text.trim();
+
+      if (email.isEmpty || password.isEmpty) {
+        // Show error message if email or password is empty
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Sign In Failed'),
+              content: Text('Please enter both email and password.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+        return;
+      }
+
+      // Sign in with email and password
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+        email: email,
+        password: password,
       );
+
       // Navigate to home page upon successful sign-in
       Navigator.pushNamed(context, '/home');
     } catch (error) {
@@ -49,17 +78,26 @@ class _SignInPageState extends State<SignInPage> {
       appBar: AppBar(
         title: Text('Sign In'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.blueGrey, // Set background color
+        ),
+        child: ListView(
+          padding: EdgeInsets.all(20.0),
           children: [
-            Image.asset('images/aidhub.png'), // Add the image here
+            Center(
+              child: Image.asset(
+                'images/aidhub.png', // Add the image here
+                height: 150,
+              ),
+            ),
             SizedBox(height: 20.0),
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             SizedBox(height: 20.0),
@@ -68,6 +106,8 @@ class _SignInPageState extends State<SignInPage> {
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             SizedBox(height: 20.0),
@@ -81,132 +121,4 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 }
-class SignUpPage extends StatefulWidget {
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
 
-class _SignUpPageState extends State<SignUpPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-  TextEditingController();
-  final TextEditingController _organizationController =
-  TextEditingController();
-  final TextEditingController _phoneNumberController =
-  TextEditingController();
-
-  Future<void> _signUpWithEmailAndPassword(BuildContext context) async {
-    try {
-      if (_passwordController.text != _confirmPasswordController.text) {
-        // Passwords do not match
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Sign Up Failed'),
-              content: Text('Passwords do not match. Please try again.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-        return;
-      }
-
-      UserCredential userCredential =
-      await _auth.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-      // Navigate to home page or perform other actions upon successful sign-up
-      Navigator.pushNamed(context, '/home');
-    } catch (error) {
-      // Handle sign-up failure
-      print('Failed to sign up with email and password: $error');
-      // Show error message to user if needed
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Sign Up Failed'),
-            content: Text('An error occurred during sign up. Please try again.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign Up'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: _confirmPasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Confirm Password',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: _organizationController,
-              decoration: InputDecoration(
-                labelText: 'Organization Name',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: _phoneNumberController,
-              decoration: InputDecoration(
-                labelText: 'Phone Number',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () => _signUpWithEmailAndPassword(context),
-              child: Text('Sign Up'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
