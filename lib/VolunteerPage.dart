@@ -79,16 +79,13 @@ class VolunteerProfilePage extends StatelessWidget {
               ListTile(
                 title: Text('Contact: ${volunteer['email']}'),
                 onTap: () {
-                  // Implement email sending functionality
                 },
               ),
               ListTile(
                 title: Text('Phone: ${volunteer['phone']}'),
                 onTap: () {
-                  // Implement phone calling functionality
                 },
               ),
-              // Add more details about the volunteer here
             ],
           );
         },
