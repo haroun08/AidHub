@@ -19,7 +19,6 @@ class _SignInPageState extends State<SignInPage> {
       final String password = _passwordController.text.trim();
 
       if (email.isEmpty || password.isEmpty) {
-        // Show error message if email or password is empty
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -40,18 +39,14 @@ class _SignInPageState extends State<SignInPage> {
         return;
       }
 
-      // Sign in with email and password
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Navigate to home page upon successful sign-in
       Navigator.pushNamed(context, '/home');
     } catch (error) {
-      // Handle sign-in failure
       print('Failed to sign in with email and password: $error');
-      // Show error message to user
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -80,14 +75,14 @@ class _SignInPageState extends State<SignInPage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.blueGrey, // Set background color
+          color: Colors.blueGrey, 
         ),
         child: ListView(
           padding: EdgeInsets.all(20.0),
           children: [
             Center(
               child: Image.asset(
-                'images/aidhub.png', // Add the image here
+                'images/aidhub.png', 
                 height: 150,
               ),
             ),
