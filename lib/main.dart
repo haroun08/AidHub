@@ -27,10 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // Use SplashScreen as the initial route
       initialRoute: '/splash',
       routes: {
-        // Define routes for all pages
         '/splash': (context) => SplashScreen(),
         '/home': (context) => MyHomePage(),
         '/signin': (context) => SignInPage(),
