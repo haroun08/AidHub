@@ -9,9 +9,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Simulate some loading time with Future.delayed
     Future.delayed(const Duration(seconds: 2), () {
-      // Navigate to the main screen after 2 seconds
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => MyHomePage(title: 'AidHub')),
       );
@@ -24,8 +22,8 @@ class SplashScreen extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFFF5F5D), // Start color
-              Color(0xFF72F2EB), // End color
+              Color(0xFFFF5F5D), 
+              Color(0xFF72F2EB), 
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -35,7 +33,7 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset('images/aidhub.png'), // Load the image from the images folder
+              Image.asset('images/aidhub.png'), 
               const SizedBox(height: 20),
               Text(
                 'AIDHUB FIND YOUR WAY',
