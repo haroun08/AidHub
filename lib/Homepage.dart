@@ -26,11 +26,11 @@ class MyHomePage extends StatelessWidget {
                 },
                 child: Text(
                   'Sign In',
-                  style: TextStyle(fontSize: 18), // Increase font size
+                  style: TextStyle(fontSize: 18), 
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue, // Set button color
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40), // Adjust padding
+                  primary: Colors.blue, 
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40), 
                 ),
               ),
               SizedBox(height: 20),
@@ -40,11 +40,11 @@ class MyHomePage extends StatelessWidget {
                 },
                 child: Text(
                   'Sign Up',
-                  style: TextStyle(fontSize: 18), // Increase font size
+                  style: TextStyle(fontSize: 18), 
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.green, // Set button color
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40), // Adjust padding
+                  primary: Colors.green, 
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40), 
                 ),
               ),
               SizedBox(height: 20),
@@ -57,11 +57,11 @@ class MyHomePage extends StatelessWidget {
                 },
                 child: Text(
                   'Volunteer List',
-                  style: TextStyle(fontSize: 18), // Increase font size
+                  style: TextStyle(fontSize: 18), 
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.orange, // Set button color
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40), // Adjust padding
+                  primary: Colors.orange, 
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40), 
                 ),
               ),
             ],
